@@ -1,0 +1,183 @@
+
+.register-page {
+  min-height: 100vh;
+  padding: 30px 8%;
+  background: #f5f7fc;
+  font-family: Arial, sans-serif;
+}
+
+.register-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p {
+    color: #8490a5;
+    font-size: 13px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  p a {
+    color: #315bea;
+    font-weight: 700;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #17233c;
+  font-size: 21px;
+  font-weight: 800;
+
+  span:last-child {
+    color: #315bea;
+  }
+}
+
+.brand-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  color: white;
+  background: #315bea;
+  border-radius: 10px;
+}
+
+.register-container {
+  max-width: 520px;
+  margin: 45px auto;
+}
+
+.register-card {
+  padding: 38px;
+  background: white;
+  border: 1px solid #e9edf5;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px #263b680d;
+}
+
+.eyebrow {
+  color: #315bea;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 800;
+}
+
+.card-heading {
+  margin-bottom: 28px;
+
+  h1 {
+    margin: 13px 0 9px;
+    color: #17233c;
+    font-size: 29px;
+  }
+
+  p {
+    color: #8490a5;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 19px;
+
+  label {
+    color: #344054;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  input, select {
+    width: 100%;
+    height: 47px;
+    padding: 0 13px;
+    border: 1px solid #dce2ed;
+    border-radius: 8px;
+    background: white;
+    color: #17233c;
+    font-size: 13px;
+    outline: none;
+  }
+
+  input:focus, select:focus {
+    border-color: #315bea;
+    box-shadow: 0 0 0 3px #315bea15;
+  }
+}
+
+.password-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #667085;
+  font-size: 12px;
+  margin: 5px 0 18px;
+}
+
+.error-message, .success-message {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.error-message {
+  color: #d92d20;
+}
+
+.success-message {
+  color: #168b62;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 49px;
+  border: none;
+  border-radius: 9px;
+  background: #315bea;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    background: #2449c9;
+  }
+}
+
+.terms {
+  margin-top: 22px;
+  color: #98a2b3;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .register-page {
+    padding: 22px 5%;
+  }
+
+  .register-card {
+    padding: 25px 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

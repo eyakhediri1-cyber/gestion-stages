@@ -4,13 +4,13 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/gestion_stages
     username: stage_admin
-    password: "Eyakh2004"
+    password: ${Eyakh2004}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
