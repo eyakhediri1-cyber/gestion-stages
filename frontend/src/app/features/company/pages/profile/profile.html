@@ -1,0 +1,94 @@
+<div class="profile-container">
+
+  <div class="profile-header">
+    <div>
+      <h1>Profil entreprise</h1>
+      <p>Gérez les informations de votre entreprise.</p>
+    </div>
+
+    <span class="verification"
+          [class.verified]="verified">
+      {{ verified ? 'Entreprise vérifiée' : 'Non vérifiée' }}
+    </span>
+  </div>
+
+  <div *ngIf="loading" class="message">
+    Chargement du profil...
+  </div>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="success">
+    {{ successMessage }}
+  </div>
+
+  <form *ngIf="!loading"
+        (ngSubmit)="updateProfile()">
+
+    <div class="form-group">
+      <label>Nom de l'entreprise</label>
+      <input
+        type="text"
+        name="companyName"
+        [(ngModel)]="profile.companyName"
+        required>
+    </div>
+
+    <div class="form-group">
+      <label>Secteur d'activité</label>
+      <input
+        type="text"
+        name="industry"
+        [(ngModel)]="profile.industry"
+        required>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea
+        name="description"
+        [(ngModel)]="profile.description"
+        rows="5">
+      </textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Site web</label>
+      <input
+        type="url"
+        name="website"
+        [(ngModel)]="profile.website">
+    </div>
+
+    <div class="form-group">
+      <label>Adresse</label>
+      <input
+        type="text"
+        name="address"
+        [(ngModel)]="profile.address">
+    </div>
+
+    <div class="form-group">
+      <label>Téléphone</label>
+      <input
+        type="tel"
+        name="phone"
+        [(ngModel)]="profile.phone">
+    </div>
+
+    <div class="form-group">
+      <label>URL du logo</label>
+      <input
+        type="url"
+        name="logoUrl"
+        [(ngModel)]="profile.logoUrl">
+    </div>
+
+    <button type="submit" [disabled]="saving">
+      {{ saving ? 'Enregistrement...' : 'Enregistrer les modifications' }}
+    </button>
+
+  </form>
+</div>

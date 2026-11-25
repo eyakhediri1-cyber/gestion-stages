@@ -1,13 +1,7 @@
 package tn.gestionstages.backend.config;
 
-import tn.gestionstages.backend.service.JwtService;
-import tn.gestionstages.backend.repository.UserRepository;
-import tn.gestionstages.backend.entity.AppUser;
-
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,8 +10,13 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import java.io.IOException;
-import java.util.List;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import tn.gestionstages.backend.entity.AppUser;
+import tn.gestionstages.backend.repository.UserRepository;
+import tn.gestionstages.backend.service.JwtService;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -30,6 +29,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UserRepository userRepository) {
         this.jwtService = jwtService;
         this.userRepository = userRepository;
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+
+        String path = request.getServletPath();
+
+        return path.startsWith("/api/auth/")
+                || request.getMethod().equals("OPTIONS");
     }
 
     @Override
@@ -53,7 +61,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if (email != null
                     && SecurityContextHolder.getContext()
-                        .getAuthentication() == null) {
+                            .getAuthentication() == null) {
 
                 AppUser user = userRepository.findByEmail(email)
                         .orElse(null);
@@ -62,8 +70,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         && user.isEnabled()
                         && jwtService.isTokenValid(token, email)) {
 
-                    var authentication =
-                            new UsernamePasswordAuthenticationToken(
+                    var authentication
+                            = new UsernamePasswordAuthenticationToken(
                                     user,
                                     null,
                                     List.of(new SimpleGrantedAuthority(

@@ -1,0 +1,213 @@
+<div class="offers-container">
+
+  <header class="page-header">
+    <div>
+      <h1>Mes offres de stage</h1>
+      <p>Gérez et suivez les opportunités proposées par votre entreprise.</p>
+    </div>
+
+    <button class="primary-button"
+            (click)="openCreateForm()">
+      + Nouvelle offre
+    </button>
+  </header>
+
+  <div class="stats">
+    <div class="stat-card">
+      <span>Total des offres</span>
+      <strong>{{ offers.length }}</strong>
+    </div>
+
+    <div class="stat-card">
+      <span>Publiées</span>
+      <strong>{{ offers.filter(o => o.published).length }}</strong>
+    </div>
+
+    <div class="stat-card">
+      <span>Brouillons</span>
+      <strong>{{ offers.filter(o => !o.published).length }}</strong>
+    </div>
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Chargement des offres...
+  </div>
+
+  <div *ngIf="!loading && offers.length === 0"
+       class="empty-state">
+    <h2>Aucune offre pour le moment</h2>
+    <p>Commencez par publier votre première offre de stage.</p>
+    <button class="primary-button" (click)="openCreateForm()">
+      Créer une offre
+    </button>
+  </div>
+
+  <div class="offers-list"
+       *ngIf="!loading && offers.length > 0">
+
+    <article class="offer-card" *ngFor="let offer of offers">
+
+      <div class="offer-top">
+        <div>
+          <h2>{{ offer.title }}</h2>
+          <span class="domain">{{ offer.domain }}</span>
+        </div>
+
+        <span class="status"
+              [class.published]="offer.published">
+          {{ offer.published ? 'Publiée' : 'Brouillon' }}
+        </span>
+      </div>
+
+      <p class="description">{{ offer.description }}</p>
+
+      <div class="offer-details">
+        <span>📍 {{ offer.location }}</span>
+        <span>💼 {{ offer.internshipType }}</span>
+        <span>⏱ {{ offer.duration }}</span>
+      </div>
+
+      <div class="offer-dates">
+        <span>Début : {{ offer.startDate }}</span>
+        <span>Date limite : {{ offer.applicationDeadline }}</span>
+      </div>
+
+      <div class="skills">
+        <strong>Compétences requises :</strong>
+        {{ offer.requiredSkills }}
+      </div>
+
+      <div class="offer-actions">
+        <button class="edit-button"
+                (click)="editOffer(offer)">
+          Modifier
+        </button>
+
+        <button class="publish-button"
+                (click)="togglePublication(offer)">
+          {{ offer.published ? 'Dépublier' : 'Publier' }}
+        </button>
+
+        <button class="delete-button"
+                (click)="deleteOffer(offer)">
+          Supprimer
+        </button>
+      </div>
+
+    </article>
+  </div>
+
+  <section class="form-overlay" *ngIf="showForm">
+
+    <div class="offer-form-card">
+
+      <div class="form-header">
+        <h2>{{ editingId ? 'Modifier l’offre' : 'Nouvelle offre de stage' }}</h2>
+        <button type="button"
+                class="close-button"
+                (click)="closeForm()">✕</button>
+      </div>
+
+      <form (ngSubmit)="saveOffer()" #offerForm="ngForm">
+
+        <div class="form-group">
+          <label>Titre de l'offre *</label>
+          <input name="title"
+                 [(ngModel)]="form.title"
+                 required maxlength="255">
+        </div>
+
+        <div class="form-group">
+          <label>Description *</label>
+          <textarea name="description"
+                    [(ngModel)]="form.description"
+                    required rows="4"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Domaine *</label>
+            <input name="domain"
+                   [(ngModel)]="form.domain"
+                   required>
+          </div>
+
+          <div class="form-group">
+            <label>Lieu *</label>
+            <input name="location"
+                   [(ngModel)]="form.location"
+                   required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Type de stage</label>
+            <input name="internshipType"
+                   [(ngModel)]="form.internshipType">
+          </div>
+
+          <div class="form-group">
+            <label>Durée</label>
+            <input name="duration"
+                   [(ngModel)]="form.duration"
+                   placeholder="Ex : 4 mois">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date de début</label>
+            <input type="date"
+                   name="startDate"
+                   [(ngModel)]="form.startDate">
+          </div>
+
+          <div class="form-group">
+            <label>Date limite de candidature</label>
+            <input type="date"
+                   name="applicationDeadline"
+                   [(ngModel)]="form.applicationDeadline">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Compétences requises</label>
+          <textarea name="requiredSkills"
+                    [(ngModel)]="form.requiredSkills"
+                    rows="3"></textarea>
+        </div>
+
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+
+        <div class="form-actions">
+          <button type="button"
+                  class="cancel-button"
+                  (click)="closeForm()">
+            Annuler
+          </button>
+
+          <button type="submit"
+                  class="primary-button"
+                  [disabled]="!offerForm.valid || saving">
+            {{ saving ? 'Enregistrement...' :
+              (editingId ? 'Enregistrer les modifications' : 'Créer l’offre') }}
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+  </section>
+
+</div>

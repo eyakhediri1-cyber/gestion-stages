@@ -1,0 +1,113 @@
+.profile-container {
+  max-width: 1050px;
+  margin: 40px auto;
+  padding: 24px;
+  color: #1e293b;
+}
+
+.profile-header {
+  margin-bottom: 30px;
+
+  h1 {
+    font-size: 30px;
+    font-weight: 750;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: #64748b;
+  }
+}
+
+.profile-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 26px;
+  margin-bottom: 22px;
+
+  h2 {
+    font-size: 19px;
+    margin-bottom: 24px;
+  }
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+
+  label {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  input, select {
+    padding: 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background: white;
+
+    &:focus {
+      border-color: #2563eb;
+    }
+
+    &:disabled {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+  }
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 14px 25px;
+  border-radius: 9px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: #1d4ed8;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.success {
+  color: #15803d;
+  margin: 15px 0;
+}
+
+.error {
+  color: #dc2626;
+  margin: 15px 0;
+}
+
+.message {
+  padding: 25px;
+  color: #64748b;
+}
+
+@media (max-width: 650px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-container {
+    padding: 15px;
+  }
+}

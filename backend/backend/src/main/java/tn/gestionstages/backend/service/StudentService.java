@@ -36,7 +36,7 @@ public class StudentService {
             });
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public StudentProfileResponse getProfile(AppUser user) {
 
         Student student = getStudent(user);
